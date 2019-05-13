@@ -1,0 +1,58 @@
+<div class="container">
+
+  <div class="top-container">
+    <mat-form-field style="width: 300px; text-align: center;">
+      <mat-label>מזהה דיון</mat-label>
+      <mat-select (selectionChange)='changeDiscussion($event)'>
+        <mat-option value="[דיון חדש]" style="text-align: center;">[דיון חדש]</mat-option>
+        <mat-option *ngFor="let discussion of discussions ; let i = index" [value]="discussion.discussionTitle + '.' + i" style="text-align: center;">
+         {{discussion.discussionTitle}}.{{i+1}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="bottom-container">
+
+      <div class="right-section">
+ 
+          <mat-form-field style="text-align: center;">
+              <input matInput placeholder="נושא דיון" [(ngModel)]='discussionTitle'>
+          </mat-form-field>
+
+          <mat-form-field style="text-align: center;">
+              <input matInput placeholder="זמן משוער" type="number" min='1' [(ngModel)]='discussionTime'>
+          </mat-form-field>
+
+          <mat-form-field style="text-align: center;">
+              <input matInput placeholder="פירוט" [(ngModel)]='discussionDesc'>
+          </mat-form-field>
+
+          <div class="" style="display: flex; flex-direction: row-reverse;">
+            <button mat-mini-fab color='primary' style="margin-top: 10px; margin-bottom: 5px; margin-left: 10px;" (click)='showDiscussion()' matTooltip='הצג דיון'><i class="material-icons">movie_filter</i></button>
+            <button mat-mini-fab color='primary' style="margin-top: 10px; margin-bottom: 5px;" (click)='saveDiscussion()'><i class="material-icons" matTooltip='שמור דיון'>save</i></button>
+        </div>
+      </div>
+      
+      <div class="left-section">
+
+          <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" style="display: flex; flex-direction: row; height: 50px;" *ngFor="let presentor of presentors; let i = index" cdkDrag>
+
+                {{presentor.presentorName}}
+
+                <div class="actions-container">
+                    <button mat-icon-button (click)='editPresentor(i)'><i class="material-icons" style="color: rgb(21, 56, 250); font-size: 20px;">edit</i></button>
+                    <button mat-icon-button (click)='deletePresentor(i)'><i class="material-icons" style="color: red; font-size: 20px;">delete</i></button>
+                </div>
+
+              </div>
+          </div>
+
+
+          <button mat-fab color='primary' style="margin-top: 10px; margin-bottom: 5px;" (click)='openAddPresentor()' matTooltip='הוסף מציג'><i class="material-icons">group_add</i></button>
+      </div>
+
+  </div>
+
+</div>

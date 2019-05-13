@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ElectronService } from 'ngx-electron';
+
+
 @Component({
   selector: 'app-main-view',
   templateUrl: './main-view.component.html',
@@ -7,28 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainViewComponent implements OnInit {
 
-  movies = [
-      'Episode I - The Phantom Menace',
-      'Episode II - Attack of the Clones',
-      'Episode III - Revenge of the Sith',
-      'Episode IV - A New Hope',
-      'Episode V - The Empire Strikes Back',
-  ];
   isPaused = false;
-  presentors = [
-      { presentorName: 'אור בדיחי', title: 'שדרוג של כל כיפות ברדד', time: 10 },
-      { presentorName: 'שיר בדיחי', title: 'עד מתי ספמט 16', time: 10.1 },
-      { presentorName: 'דניאל טלאור מוזס', title: 'עד מתיייי', time: 60 }
-  ];
-  presentorsCopy = this.presentors.slice();
-  currentPresentor = { presentorName: '', title: '', time: 0 };
-  nextDiscussionName = 'דיון על עד מתי';
-  nextDiscussionTime = '14:20';
+  presentors = [];
+  presentorsCopy = [];
 
-  constructor() { }
+  currentPresentor = { presentorName: '', presentorTitle: '', presentorTime: 0 };
+  
+  nextDiscussionName = '-';
+  nextDiscussionTime = '-';
+
+  discussionTitle = ''
+
+  constructor(private _electronService: ElectronService) { 
+    _electronService.ipcRenderer.send('getData', '');
+    _electronService.ipcRenderer.on('getData', (event, data) => {
+
+      this.discussionTitle = data.discussionTitle;
+      
+      this.presentors = data.presentors;
+      this.presentorsCopy = this.presentors.slice();
+      this.currentPresentor = this.presentorsCopy.shift();
+    });
+  }
 
   ngOnInit() {
-    this.currentPresentor = this.presentorsCopy.shift();
   }
 
   onFinished(){
@@ -52,4 +57,9 @@ export class MainViewComponent implements OnInit {
         this.currentPresentor = this.presentors[preveiousPresentorIndex];
     }
   }
+
+  exit(){
+    this._electronService.ipcRenderer.send('exit');
+  }
+
 }

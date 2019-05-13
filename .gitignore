@@ -4,6 +4,8 @@
 /dist
 /tmp
 /out-tsc
+/discussion-online-win32-x64
+node-v12.2.0-x64.msi
 
 # dependencies
 /node_modules

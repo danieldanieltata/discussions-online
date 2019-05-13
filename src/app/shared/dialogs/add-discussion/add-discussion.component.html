@@ -1,0 +1,23 @@
+<h1 mat-dialog-title style="direction: rtl;">פרטי מציג</h1>
+<div mat-dialog-content>
+
+  <mat-form-field style="text-align: center; width: 100%;">
+    <input matInput placeholder="שם מציג" [(ngModel)]='presentorName'>
+  </mat-form-field>
+
+  <mat-form-field style="text-align: center; width: 100%;">
+      <input matInput placeholder="זמן הצגה" type="number" min='1' [(ngModel)]='presentorTime'>
+  </mat-form-field>
+
+  <mat-form-field style="text-align: center; width: 100%;">
+      <input matInput placeholder="נושא" [(ngModel)]='presentorTitle'>
+  </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions>
+
+  <button mat-button cdkFocusInitial (click)='acceptPresentor()'>אישור</button>
+  <button mat-button (click)="dialogRef.close()">ביטול</button>
+
+</div>

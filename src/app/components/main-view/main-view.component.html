@@ -1,42 +1,10 @@
-<!-- <div class="contaner">
-
-  <div class="top-section">
-    
-    <mat-form-field appearance="outline" style="text-align: center; width: 500px; font-size: 16px">
-      <mat-select placeholder="מזהה דיון">
-        <mat-option value="1" style="text-align: right">1</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-
-  </div>  
-
-  <div class="bottom-section">
-      <h3 style="text-align: center">נושא הדיון: כיפת ברזל</h3>
-
-      <div class="discuttion-description">
-             <h3 style="text-align: right">פרטים: דיון בנושא כיפת 15</h3>
-             <h3 style="text-align: right">משך הדיון: 10 דק</h3>
-      </div>
-
-      <div class="presentors-container">
-              <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-                  <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
-              </div>
-      </div>
-
-  </div>
-
-</div>    
-
- -->
- <div class="container" [style.background-image]="'url(assets/images/main-background.png)'" style="height: 100%; width: 100%; background-size: cover; overflow: hidden;">
+ <div class="container" [style.background-image]="'url(assets/images/main-background.png)'" style="height: 100%; width: 100%; background-size: contain; overflow: hidden;">
   <div class="top-section-container">
-    <button style="position: fixed; right: 65px; top: 90px;" class='standard-btn'>יציאה</button>
+    <button style="position: fixed; right: 65px; top: 90px;" class='standard-btn' (click)='exit()'>יציאה</button>
     <button style="position: fixed; right: 298px; top: 90px;" class='standard-btn' (click)="previousPresentor()">מציג קודם</button>
 
     <div class="disscussion-name-container">
-        <div class="disscussion-name">שדרוג של כיפה 544</div>
+        <div class="disscussion-name">{{discussionTitle}}</div>
     </div>
 
     <button style="position: fixed; left: 340px; top: 72px; width: 230px" class='standard-btn' (click)="nextPresentor()">מציג הבא</button>
@@ -49,7 +17,7 @@
 
           <div class="right-section">
               <h1 style="max-width: 450px; direction: rtl; word-wrap: break-word; color: white;">המציג כעת -  {{currentPresentor.presentorName}}</h1>
-              <h2 style="max-width: 450px; direction: rtl; word-wrap: break-word; color: white;">{{currentPresentor.title}}</h2>
+              <h2 style="max-width: 450px; direction: rtl; word-wrap: break-word; color: white;">{{currentPresentor.presentorTitle}}</h2>
           </div>
 
           <div class="left-section">
@@ -69,7 +37,7 @@
             <h1 style="direction: rtl; font-size: 50px">זמן למציג:</h1>
           </div>
 
-          <countdown class='timer' [config]="{leftTime: currentPresentor.time}" (finished)="onFinished()" #cdt>$!h!:$!m!:$!s!</countdown>
+          <countdown class='timer' [config]="{leftTime: currentPresentor.presentorTime}" (finished)="onFinished()" #cdt>$!h!:$!m!:$!s!</countdown>
       </div>
 
   </div>
