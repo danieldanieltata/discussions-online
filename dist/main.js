@@ -85,7 +85,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>\r\n"
+module.exports = "<!-- <router-outlet></router-outlet> -->\r\n<app-main-view class=\"\"></app-main-view>"
 
 /***/ }),
 
@@ -241,7 +241,8 @@ module.exports = " <div class=\"container\" [style.background-image]=\"'url(asse
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainViewComponent", function() { return MainViewComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_electron__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-electron */ "./node_modules/ngx-electron/fesm5/ngx-electron.js");
+/* harmony import */ var _assets_data_discussionData_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../assets/data/discussionData.json */ "./src/assets/data/discussionData.json");
+var _assets_data_discussionData_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../../../assets/data/discussionData.json */ "./src/assets/data/discussionData.json", 1);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -252,11 +253,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+// import { ElectronService } from 'ngx-electron';
 
 var MainViewComponent = /** @class */ (function () {
-    function MainViewComponent(_electronService) {
-        var _this = this;
-        this._electronService = _electronService;
+    function MainViewComponent() {
+        // _electronService.ipcRenderer.send('getData', '');
+        // _electronService.ipcRenderer.on('getData', (event, data) => {
         this.isPaused = false;
         this.presentors = [];
         this.presentorsCopy = [];
@@ -264,13 +266,19 @@ var MainViewComponent = /** @class */ (function () {
         this.nextDiscussionName = '-';
         this.nextDiscussionTime = '-';
         this.discussionTitle = '';
-        _electronService.ipcRenderer.send('getData', '');
-        _electronService.ipcRenderer.on('getData', function (event, data) {
-            _this.discussionTitle = data.discussionTitle;
-            _this.presentors = data.presentors;
-            _this.presentorsCopy = _this.presentors.slice();
-            _this.currentPresentor = _this.presentorsCopy.shift();
-        });
+        //   this.discussionTitle = data.discussionTitle;
+        //   this.presentors = data.presentors;
+        //   this.presentorsCopy = this.presentors.slice();
+        //   this.currentPresentor = this.presentorsCopy.shift();
+        // });
+        if ("discussionName" in _assets_data_discussionData_json__WEBPACK_IMPORTED_MODULE_1__ && "presentors" in _assets_data_discussionData_json__WEBPACK_IMPORTED_MODULE_1__) {
+            this.discussionTitle = _assets_data_discussionData_json__WEBPACK_IMPORTED_MODULE_1__.discussionName;
+            this.presentors = _assets_data_discussionData_json__WEBPACK_IMPORTED_MODULE_1__.presentors;
+            this.presentorsCopy = this.presentors.slice();
+            this.currentPresentor = this.presentorsCopy.shift();
+        }
+        else
+            alert("Bad Data");
     }
     MainViewComponent.prototype.ngOnInit = function () {
     };
@@ -294,7 +302,8 @@ var MainViewComponent = /** @class */ (function () {
         }
     };
     MainViewComponent.prototype.exit = function () {
-        this._electronService.ipcRenderer.send('exit');
+        // this._electronService.ipcRenderer.send('exit');
+        window.close();
     };
     MainViewComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -302,7 +311,7 @@ var MainViewComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./main-view.component.html */ "./src/app/components/main-view/main-view.component.html"),
             styles: [__webpack_require__(/*! ./main-view.component.css */ "./src/app/components/main-view/main-view.component.css")]
         }),
-        __metadata("design:paramtypes", [ngx_electron__WEBPACK_IMPORTED_MODULE_1__["ElectronService"]])
+        __metadata("design:paramtypes", [])
     ], MainViewComponent);
     return MainViewComponent;
 }());
@@ -616,6 +625,17 @@ var AddDiscussionComponent = /** @class */ (function () {
 }());
 
 
+
+/***/ }),
+
+/***/ "./src/assets/data/discussionData.json":
+/*!*********************************************!*\
+  !*** ./src/assets/data/discussionData.json ***!
+  \*********************************************/
+/*! exports provided: discussionName, presentors, default */
+/***/ (function(module) {
+
+module.exports = {"discussionName":"מדוע צריך להעביר את כיפה 544 ל 544","presentors":[{"presentorName":"דניאל טלאור מוזס","presentorTime":60,"presentorTitle":"דיון על העברת כיפה"},{"presentorName":"אור בדיחי","presentorTime":60.1,"presentorTitle":"דיון על העברת כיפה"},{"presentorName":"שיר בדיחי","presentorTime":60.1,"presentorTitle":"דיון על העברת כיפה"}]};
 
 /***/ }),
 

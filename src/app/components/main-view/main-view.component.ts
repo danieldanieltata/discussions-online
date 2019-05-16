@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ElectronService } from 'ngx-electron';
-
+// import { ElectronService } from 'ngx-electron';
+// import discussionData from '../../../assets/data/discussionData.json';
 
 @Component({
   selector: 'app-main-view',
@@ -21,16 +21,19 @@ export class MainViewComponent implements OnInit {
 
   discussionTitle = ''
 
-  constructor(private _electronService: ElectronService) { 
-    _electronService.ipcRenderer.send('getData', '');
-    _electronService.ipcRenderer.on('getData', (event, data) => {
+  constructor() { 
+    // _electronService.ipcRenderer.send('getData', '');
+    // _electronService.ipcRenderer.on('getData', (event, data) => {
 
-      this.discussionTitle = data.discussionTitle;
+    //   this.discussionTitle = data.discussionTitle;
       
-      this.presentors = data.presentors;
-      this.presentorsCopy = this.presentors.slice();
-      this.currentPresentor = this.presentorsCopy.shift();
-    });
+    //   this.presentors = data.presentors;
+    //   this.presentorsCopy = this.presentors.slice();
+    //   this.currentPresentor = this.presentorsCopy.shift();
+    
+    // });
+
+
   }
 
   ngOnInit() {
@@ -59,7 +62,32 @@ export class MainViewComponent implements OnInit {
   }
 
   exit(){
-    this._electronService.ipcRenderer.send('exit');
+    // this._electronService.ipcRenderer.send('exit');
+    window.close();
   }
 
+  file:any;
+  fileChanged(e) {
+      this.file = e.target.files[0];
+      this.uploadDocument(this.file)
+  }
+  uploadDocument(file) {
+    let fileReader = new FileReader();
+    // fileReader.onload = (e) => {
+    //   console.dir(String(fileReader.result));
+    //   let discussionData = JSON.parse(String(fileReader.result));
+
+    //   if("discussionName" in discussionData && "presentors" in discussionData){
+    //     this.discussionTitle = discussionData.discussionName;
+        
+    //     this.presentors = discussionData.presentors;
+    //     this.presentorsCopy = this.presentors.slice();
+  
+    //     this.currentPresentor = this.presentorsCopy.shift();
+    //   }
+    //   else 
+    //     alert("Bad Data");
+    // }
+    console.dir(fileReader.readAsText(this.file));
+}
 }
