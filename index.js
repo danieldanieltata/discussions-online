@@ -39,14 +39,14 @@ function createWindow() {
   // })
   
   win2 = new BrowserWindow({ width: 1000, height: 1000, show: false, fullscreen: true });
-  // win2.loadURL(
-  //   url.format({
-  //     pathname: path.join(__dirname, 'dist/index.html'),
-  //     protocol: "file:",
-  //     slashes: true,
-  //   })
-  // );
-  win2.loadURL('http://localhost:4200')
+  win2.loadURL(
+    url.format({
+      pathname: path.join(__dirname, 'dist/index.html'),
+      protocol: "file:",
+      slashes: true,
+    })
+  );
+  // win2.loadURL('http://localhost:4200')
   win2.openDevTools();
   win2.show();
 

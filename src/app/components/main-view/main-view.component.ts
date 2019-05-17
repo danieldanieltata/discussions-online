@@ -73,21 +73,24 @@ export class MainViewComponent implements OnInit {
   }
   uploadDocument(file) {
     let fileReader = new FileReader();
-    // fileReader.onload = (e) => {
-    //   console.dir(String(fileReader.result));
-    //   let discussionData = JSON.parse(String(fileReader.result));
+    fileReader.onload = (e) => {
+      console.dir(String(fileReader.result));
+      let discussionData = JSON.parse(String(fileReader.result));
 
-    //   if("discussionName" in discussionData && "presentors" in discussionData){
-    //     this.discussionTitle = discussionData.discussionName;
+      if("discussionName" in discussionData && "presentors" in discussionData){
+        this.discussionTitle = discussionData.discussionName;
         
-    //     this.presentors = discussionData.presentors;
-    //     this.presentorsCopy = this.presentors.slice();
+        this.presentors = discussionData.presentors;
+        this.presentorsCopy = this.presentors.slice();
   
-    //     this.currentPresentor = this.presentorsCopy.shift();
-    //   }
-    //   else 
-    //     alert("Bad Data");
-    // }
+        this.currentPresentor = this.presentorsCopy.shift();
+      }
+      else 
+        alert("Bad Data");
+    }
     console.dir(fileReader.readAsText(this.file));
-}
+  }
+
+ 
+
 }
